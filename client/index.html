@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      h1 {
+        text-align: center;
+        text-decoration: underline;
+        color: #006699;
+      }
+      input {
+        display: block;
+        width: 60%;
+        margin: 0 auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+      }
+      input[type="submit"] {
+        width: 20%;
+        margin: 0 auto;
+        margin-top: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      div {
+        margin: 0 auto;
+        width: 60%;
+        padding: 10px;
+        border: 1px solid red;
+        margin-bottom: 20px;
+        display: none;
+      }
+      button {
+        width: 20%;
+        margin: 0 auto;
+        margin-top: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      .post {
+        display: block;
+        width: 300px;
+        margin: 0 auto;
+        height: 40px;
+        border: 1px solid #ccc;
+      }
+      hr {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>REGISTER FORM</h1>
+    <div class="regNoti"></div>
+    <form class="regForm" action="" method="POST">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="text" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="password" />
+
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="confirmPassword"
+      />
+      <input type="submit" name="submit" value="submit" />
+    </form>
+    <hr />
+    <h1>LOGIN FORM</h1>
+    <div class="loginNoti"></div>
+    <form class="loginForm" action="" method="POST">
+      <input type="text" name="loginemail" placeholder="Email" />
+      <input type="password" name="loginpassword" placeholder="password" />
+      <input type="submit" name="submit" value="submit" />
+    </form>
+    <hr />
+    <h1>LOGOUT</h1>
+    <div class="logoutNoti"></div>
+    <input type="submit" onclick="logout()" value="logout" />
+    <hr />
+    <h1>POSTS</h1>
+    <div class="post"></div>
+    <script>
+      const regForm = document.querySelector(".regForm");
+      const loginForm = document.querySelector(".loginForm");
+
+      getPost();
+
+      regForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.querySelector('input[name="name"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+        const confirmPassword = document.querySelector(
+          'input[name="confirmPassword"]'
+        ).value;
+        const regNoti = document.querySelector(".regNoti");
+
+        fetch("http://localhost:3000/api/sign_up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+          }),
+        })
+          .then((data) => {
+            const dataJson = data.json();
+            dataJson.then((res) => {
+              if (res.errors) {
+                regNoti.style.display = "block";
+                regNoti.innerHTML = res.errors;
+              }
+              if (res.data) {
+                document.querySelector('input[name="name"]').value = "";
+                document.querySelector('input[name="email"]').value = "";
+                document.querySelector('input[name="password"]').value = "";
+                document.querySelector('input[name="confirmPassword"]').value =
+                  "";
+                regNoti.style.display = "block";
+                regNoti.innerHTML = "Successfully Registered, Please Login";
+              }
+            });
+          })
+          .catch((err) => console.log(err));
+      });
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.querySelector('input[name="loginemail"]').value;
+        const password = document.querySelector(
+          'input[name="loginpassword"]'
+        ).value;
+        const loginNoti = document.querySelector(".loginNoti");
+
+        fetch("http://localhost:3000/api/sign_in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+          .then((data) => {
+            const dataJson = data.json();
+            dataJson
+              .then((res) => {
+                if (res.error) {
+                  loginNoti.style.display = "block";
+                  loginNoti.innerHTML = res.error;
+                }
+                if (res.token) {
+                  try {
+                    localStorage.setItem("token", res.token);
+                  } catch (error) {
+                    console.log(error);
+                  }
+
+                  document.querySelector('input[name="loginemail"]').value = "";
+                  document.querySelector('input[name="loginpassword"]').value =
+                    "";
+
+                  loginNoti.style.display = "block";
+                  loginNoti.innerHTML = "Successfully Logged In";
+                }
+                getPost();
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+      });
+
+      function logout() {
+        localStorage.removeItem("token");
+        const logoutNoti = document.querySelector(".logoutNoti");
+        logoutNoti.style.display = "block";
+        logoutNoti.innerHTML = "Successfully Logged Out";
+        getPost();
+      }
+
+      function getPost() {
+        const token = localStorage.getItem("token");
+
+        fetch("http://localhost:3000/api/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((data) => {
+          const dataJson = data.json();
+          dataJson.then((res) => {
+            if (res.error) {
+              const post = document.querySelector(".post");
+              post.innerHTML = "Login to see posts";
+            }
+            if (res.message) {
+              const post = document.querySelector(".post");
+              post.innerHTML = res.message;
+            }
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
