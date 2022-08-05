@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 var cors = require("cors");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const bodyParser = require("body-parser");
 const { DBconnection } = require("./DB/index");
 const path = require("path");
@@ -19,14 +19,6 @@ app.use(bodyParser.json());
 app.use("/api", userRoutes);
 
 //client - frontend
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/index.html"));
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/404.html"));
-});
 
 // Connect to MongoDB
 DBconnection();
