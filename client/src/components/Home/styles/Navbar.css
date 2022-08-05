@@ -1,0 +1,15 @@
+.navbar-nav .nav-link .link{
+    text-decoration: none;
+    color: green;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.navbar-nav .nav-link .link:hover{
+    background-color: #f2f2f2;
+    color: #4169E1;
+}
