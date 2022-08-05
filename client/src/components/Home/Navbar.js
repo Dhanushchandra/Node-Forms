@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logout from "../Forms/Logout";
+import "./styles/Navbar.css";
 
 function Navbar() {
   return (
@@ -26,16 +27,29 @@ function Navbar() {
         >
           <div className="navbar-nav ">
             <a className="nav-link active " aria-current="page">
-              Home
+              <Link className="link" to="/">
+                Home
+              </Link>
+            </a>
+            <a className="nav-link  " aria-current="page">
+              {localStorage.getItem("jwt") ? (
+                <Link className="link" to="/createpost">
+                  Create
+                </Link>
+              ) : null}
             </a>
             <a className="nav-link">
               {localStorage.getItem("jwt") ? null : (
-                <Link to="/register">Register</Link>
+                <Link className="link" to="/register">
+                  Register
+                </Link>
               )}
             </a>
             <a className="nav-link">
               {localStorage.getItem("jwt") ? null : (
-                <Link to="/login">Login</Link>
+                <Link className="link" to="/login">
+                  Login
+                </Link>
               )}
             </a>
             {localStorage.getItem("jwt") ? <Logout /> : null}

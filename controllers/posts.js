@@ -10,7 +10,6 @@ module.exports.createPost = (req, res) => {
   post
     .save()
     .then((result) => {
-      console.log(result);
       res.status(201).json({
         message: "Post created successfully",
         createdPost: {
