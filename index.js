@@ -8,6 +8,7 @@ const { DBconnection } = require("./DB/index");
 const path = require("path");
 
 const userRoutes = require("./routes/user");
+const postsRoutes = require("./routes/posts");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 //users
 app.use("/api", userRoutes);
+app.use("/api/posts", postsRoutes);
 
 //client - frontend
 
