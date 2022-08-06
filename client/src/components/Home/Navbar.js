@@ -4,6 +4,8 @@ import Logout from "../Forms/Logout";
 import "./styles/Navbar.css";
 
 function Navbar() {
+  const token = localStorage.getItem("jwt");
+
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
@@ -32,27 +34,27 @@ function Navbar() {
               </Link>
             </a>
             <a className="nav-link  " aria-current="page">
-              {localStorage.getItem("jwt") ? (
+              {token ? (
                 <Link className="link" to="/createpost">
                   Create
                 </Link>
               ) : null}
             </a>
             <a className="nav-link">
-              {localStorage.getItem("jwt") ? null : (
+              {token ? null : (
                 <Link className="link" to="/register">
                   Register
                 </Link>
               )}
             </a>
             <a className="nav-link">
-              {localStorage.getItem("jwt") ? null : (
+              {token ? null : (
                 <Link className="link" to="/login">
                   Login
                 </Link>
               )}
             </a>
-            {localStorage.getItem("jwt") ? <Logout /> : null}
+            {token ? <Logout /> : null}
           </div>
         </div>
       </div>

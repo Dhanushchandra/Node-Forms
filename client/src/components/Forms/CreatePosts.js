@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import Base from "../Base/Base";
 
 function CreatePosts() {
+  const token = localStorage.getItem("jwt");
+
   const [values, setValues] = useState({
     title: "",
     body: "",
@@ -22,6 +25,7 @@ function CreatePosts() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title,
@@ -31,9 +35,12 @@ function CreatePosts() {
     })
       .then((response) => {
         response.json().then((data) => {
-          if (data.errors) {
-            console.log(data.errors);
-            setValues({ ...values, error: data.errors, success: false });
+          const authError = data.error;
+
+          const errorMsg = authError ? authError : data.errors;
+
+          if (data.errors || data.error) {
+            setValues({ ...values, error: errorMsg, success: false });
           } else {
             setValues({
               ...values,
@@ -74,59 +81,61 @@ function CreatePosts() {
   };
 
   return (
-    <div className="container">
-      {successMessage()}
-      {errorMessage()}
-      <div className="row">
-        <div className="col-md-6 m-auto">
-          <div className="card card-body mt-5">
-            <h2 className="text-center">Create Post</h2>
-            <form id="createPostForm" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Title</label>
-                <input
-                  onChange={(e) => {
-                    setValues({ ...values, title: e.target.value });
-                  }}
-                  type="text"
-                  className="form-control"
-                  placeholder="Lengend of the Sword"
-                />
-              </div>
-              <div className="form-group">
-                <label>Description</label>
-                <input
-                  onChange={(e) => {
-                    setValues({ ...values, body: e.target.value });
-                  }}
-                  type="text"
-                  className="form-control"
-                  placeholder="The rise of superhero from the ashes of the past"
-                />
-              </div>
-              <div className="form-group">
-                <label>Image src</label>
-                <input
-                  onChange={(e) => {
-                    setValues({ ...values, src: e.target.value });
-                  }}
-                  type="text"
-                  className="form-control"
-                  placeholder="https://cat-images.com/image.jpg"
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-primary btn-block"
-                />
-              </div>
-            </form>
+    <Base>
+      <div className="container">
+        {successMessage()}
+        {errorMessage()}
+        <div className="row">
+          <div className="col-md-6 m-auto">
+            <div className="card card-body mt-5">
+              <h2 className="text-center">Create Post</h2>
+              <form id="createPostForm" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>Title</label>
+                  <input
+                    onChange={(e) => {
+                      setValues({ ...values, title: e.target.value });
+                    }}
+                    type="text"
+                    className="form-control"
+                    placeholder="Lengend of the Sword"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <input
+                    onChange={(e) => {
+                      setValues({ ...values, body: e.target.value });
+                    }}
+                    type="text"
+                    className="form-control"
+                    placeholder="The rise of superhero from the ashes of the past"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Image src</label>
+                  <input
+                    onChange={(e) => {
+                      setValues({ ...values, src: e.target.value });
+                    }}
+                    type="text"
+                    className="form-control"
+                    placeholder="https://cat-images.com/image.jpg"
+                  />
+                </div>
+                <div className="form-group mt-4">
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="btn btn-primary btn-block"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Base>
   );
 }
 

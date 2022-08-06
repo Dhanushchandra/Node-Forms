@@ -2,11 +2,18 @@ import React from "react";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import CreatePosts from "./components/Forms/CreatePosts";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Base from "./components/Base/Base";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./components/Home/Home";
 
 //main
 function App() {
+  const token = localStorage.getItem("jwt");
   return (
     <>
       <Router>
@@ -14,7 +21,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/createpost" element={<CreatePosts />} />
+          {token ? (
+            <Route path="/createpost" element={<CreatePosts />} />
+          ) : (
+            <Route path="/createpost" element={<Navigate to="/login" />} />
+          )}
+          <Route path="/base" element={<Base />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </>

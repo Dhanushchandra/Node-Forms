@@ -1,4 +1,5 @@
-/* .post-main{
-    flex: 33.33%;
-    max-width: 30.33%;
-} */
+
+.card-img-top{
+    width: 100%;
+    height: 200px;
+}

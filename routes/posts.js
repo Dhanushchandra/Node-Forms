@@ -6,7 +6,14 @@ const {
   postValidationCheck,
 } = require("../middlewares/post-validation");
 
-route.post("/create", postValidation, postValidationCheck, createPost);
+route.post(
+  "/create",
+  verifyToken,
+  postValidation,
+  postValidationCheck,
+
+  createPost
+);
 
 route.get("/", verifyToken, getPosts);
 

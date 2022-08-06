@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Base from "../Base/Base";
 
 function Login() {
   const [values, setValues] = useState({
@@ -73,48 +74,50 @@ function Login() {
   };
 
   return (
-    <div className="container">
-      {successMessage()}
-      {errorMessage()}
-      <div className="row">
-        <div className="col-md-6 m-auto">
-          <div className="card card-body mt-5">
-            <h2 className="text-center">Login</h2>
-            <form id="loginForm" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  onChange={(e) => {
-                    setValues({ ...values, email: e.target.value });
-                  }}
-                  type="email"
-                  className="form-control"
-                  placeholder="example@example.com"
-                />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  onChange={(e) => {
-                    setValues({ ...values, password: e.target.value });
-                  }}
-                  type="password"
-                  className="form-control"
-                  placeholder="********"
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  type="submit"
-                  value="Login"
-                  className="btn btn-primary btn-block"
-                />
-              </div>
-            </form>
+    <Base>
+      <div className="container">
+        {successMessage()}
+        {errorMessage()}
+        <div className="row">
+          <div className="col-md-6 m-auto">
+            <div className="card card-body mt-5">
+              <h2 className="text-center">Login</h2>
+              <form id="loginForm" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    onChange={(e) => {
+                      setValues({ ...values, email: e.target.value });
+                    }}
+                    type="email"
+                    className="form-control"
+                    placeholder="example@example.com"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    onChange={(e) => {
+                      setValues({ ...values, password: e.target.value });
+                    }}
+                    type="password"
+                    className="form-control"
+                    placeholder="********"
+                  />
+                </div>
+                <div className="form-group mt-4">
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="btn btn-primary btn-block"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Base>
   );
 }
 

@@ -1,15 +1,12 @@
 import React from "react";
-import Basic from "./Basic";
-import Navbar from "./Navbar";
+import Base from "../Base/Base";
 import Posts from "./Posts";
 
 function Home() {
   return (
-    <div>
-      <Navbar />
+    <Base>
       <Posts />
-      {/* <Basic /> */}
-    </div>
+    </Base>
   );
 }
 
