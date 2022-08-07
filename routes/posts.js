@@ -1,6 +1,11 @@
 const route = require("express").Router();
 const { verifyToken } = require("../middlewares/token-manager");
-const { createPost, getPosts } = require("../controllers/posts");
+const {
+  createPost,
+  getAllPosts,
+  deletePost,
+  getPost,
+} = require("../controllers/posts");
 const {
   postValidation,
   postValidationCheck,
@@ -15,6 +20,10 @@ route.post(
   createPost
 );
 
-route.get("/", verifyToken, getPosts);
+route.get("/", verifyToken, getAllPosts);
+
+route.get("/:id", verifyToken, getPost);
+
+route.delete("/:id", verifyToken, deletePost);
 
 module.exports = route;
