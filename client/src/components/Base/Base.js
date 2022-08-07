@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../Home/Navbar";
+import Navbar from "./Navbar";
 import "./styles/Base.css";
 
 function Base({ children }) {

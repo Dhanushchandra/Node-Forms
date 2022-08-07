@@ -1,6 +1,6 @@
 import React from "react";
 import Base from "../Base/Base";
-import Posts from "./Posts";
+import Posts from "../Posts/Posts";
 
 function Home() {
   return (

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Basic from "./Basic";
+import Basic from "../Home/Basic";
 import Post from "./Post";
 import "./styles/Posts.css";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -39,7 +40,9 @@ const Posts = () => {
       <div className="container-fluid posts-main ">
         {posts.map((d) => (
           <div>
-            <Post key={d._id} src={d.src} title={d.title} body={d.body} />
+            <Link to={`/post/${d._id}`}>
+              <Post key={d._id} src={d.src} title={d.title} body={d.body} />
+            </Link>
           </div>
         ))}
       </div>
