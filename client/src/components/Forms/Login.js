@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Base from "../Base/Base";
+import "./styles/Login.css";
 
 function Login() {
   const [values, setValues] = useState({
@@ -75,7 +76,7 @@ function Login() {
 
   return (
     <Base>
-      <div className="container">
+      <div className="container login">
         {successMessage()}
         {errorMessage()}
         <div className="row">
