@@ -10,10 +10,13 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./components/Home/Home";
+import { isAuthenticated } from "../src/helpers/Authenticated";
 
 //main
 function App() {
+  isAuthenticated();
   const token = localStorage.getItem("jwt");
+
   return (
     <>
       <Router>

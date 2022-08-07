@@ -20,7 +20,7 @@ function Register() {
 
     setValues({ ...values, error: "", success: false });
 
-    fetch("https://nodeallforms.herokuapp.com/api/sign_up", {
+    fetch("http://localhost:8000/api/sign_up", {
       method: "POST",
       headers: {
         Accept: "application/json",

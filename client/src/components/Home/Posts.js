@@ -23,6 +23,7 @@ const Posts = () => {
           if (data.error) {
             return <Basic />;
           }
+
           setPosts(data.posts);
         });
       })
@@ -37,7 +38,9 @@ const Posts = () => {
     return (
       <div className="container-fluid posts-main ">
         {posts.map((d) => (
-          <Post key={d.id} src={d.src} title={d.title} body={d.body} />
+          <div>
+            <Post key={d._id} src={d.src} title={d.title} body={d.body} />
+          </div>
         ))}
       </div>
     );

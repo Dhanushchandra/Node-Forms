@@ -9,6 +9,7 @@ const path = require("path");
 
 const userRoutes = require("./routes/user");
 const postsRoutes = require("./routes/posts");
+const authRoutes = require("./routes/auth");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 //users
 app.use("/api", userRoutes);
 app.use("/api/posts", postsRoutes);
+app.use("/api/auth", authRoutes);
 
 //client - frontend
 
