@@ -53,6 +53,21 @@ module.exports.getPost = (req, res) => {
   });
 };
 
+module.exports.updatePost = (req, res) => {
+  Post.findByIdAndUpdate(req.params.id, req.body, (err, post) => {
+    if (err) {
+      res.status(404).json({
+        message: "Post not found",
+      });
+    } else {
+      res.status(200).json({
+        message: "Post updated successfully",
+        post: post,
+      });
+    }
+  });
+};
+
 module.exports.deletePost = (req, res) => {
   Post.findByIdAndDelete(req.params.id)
     .then((post) => {

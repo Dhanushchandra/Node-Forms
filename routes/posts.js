@@ -3,6 +3,7 @@ const { verifyToken } = require("../middlewares/token-manager");
 const {
   createPost,
   getAllPosts,
+  updatePost,
   deletePost,
   getPost,
 } = require("../controllers/posts");
@@ -21,6 +22,8 @@ route.post(
 );
 
 route.get("/", verifyToken, getAllPosts);
+
+route.put("/:id", verifyToken, updatePost);
 
 route.get("/:id", verifyToken, getPost);
 

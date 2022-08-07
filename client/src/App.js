@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import CreatePosts from "./components/Forms/CreatePosts";
@@ -15,7 +15,10 @@ import { isAuthenticated } from "../src/helpers/Authenticated";
 
 //main
 function App() {
-  isAuthenticated();
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
   const token = localStorage.getItem("jwt");
 
   return (
@@ -31,7 +34,11 @@ function App() {
             <Route path="/createpost" element={<Navigate to="/login" />} />
           )}
           <Route path="/base" element={<Base />} />
-          <Route path="/post/:id" element={<PostEdit />} />
+          {token ? (
+            <Route path="/post/:id" element={<PostEdit />} />
+          ) : (
+            <Route path="/post/:id" element={<Navigate to="/login" />} />
+          )}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

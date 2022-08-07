@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Basic from "../Home/Basic";
 import Post from "./Post";
 import "./styles/Posts.css";
@@ -33,7 +33,9 @@ const Posts = () => {
       });
   };
 
-  getPosts();
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   const successPost = () => {
     return (

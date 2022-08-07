@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./styles/Post.css";
 import "./styles/PostEdit.css";
@@ -11,6 +11,7 @@ function PostEdit(props) {
     src: "",
     error: "",
     success: false,
+    successMsg: "",
   });
 
   const token = localStorage.getItem("jwt");
@@ -38,6 +39,32 @@ function PostEdit(props) {
       .catch((err) => console.log(err));
   };
 
+  const updatePost = () => {
+    fetch(`http://localhost:8000/api/posts/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: values.title,
+        body: values.body,
+        src: values.src,
+      }),
+    })
+      .then((res) => {
+        const data = res.json();
+        data.then((result) => {
+          if (result.post) {
+            setValues({ ...values, success: true, successMsg: "Post updated" });
+          } else {
+            console.log("Not found");
+          }
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   const deletePost = () => {
     fetch(`http://localhost:8000/api/posts/${id}`, {
       method: "DELETE",
@@ -49,11 +76,10 @@ function PostEdit(props) {
         const data = res.json();
         data.then((result) => {
           if (result.post) {
-            console.log("Post deleted");
-            setValues({ ...values, success: true });
+            setValues({ ...values, success: true, successMsg: "Post deleted" });
             setTimeout(() => {
               window.location.href = "/";
-            }, 2000);
+            }, 3000);
           } else {
             setValues({ ...values, error: "Not Found" });
             console.log("Not found");
@@ -65,15 +91,22 @@ function PostEdit(props) {
       });
   };
 
-  getPost();
+  useEffect(() => {
+    getPost();
+  }, []);
 
-  const successMessage = () => {
+  setTimeout(() => {
+    const successMsg = document.querySelector(".alert");
+    successMsg.style.display = "none";
+  }, 3000);
+
+  const successMessage = (v) => {
     return (
       <div
         className="alert alert-success mt-5 text-center w-50 mx-auto"
         style={{ display: values.success ? "" : "none" }}
       >
-        <h4>Successfully deleted the post!</h4>
+        <h4>{v}</h4>
       </div>
     );
   };
@@ -93,7 +126,7 @@ function PostEdit(props) {
     <Base>
       <div className="postedit-main">
         <h1>Edit Your Post</h1>
-        {successMessage()}
+        {successMessage(values.successMsg)}
         {errorMessage()}
         <div className="card postedit" style={{ width: "18rem" }}>
           <img className="card-img-top" src={values.src} />
@@ -105,6 +138,9 @@ function PostEdit(props) {
                 name="title"
                 placeholder="Title"
                 defaultValue={values.title}
+                onChange={(e) =>
+                  setValues({ ...values, title: e.target.value })
+                }
               />
             </h5>
             <p className="card-text">
@@ -113,6 +149,7 @@ function PostEdit(props) {
                 placeholder="Body"
                 rows="3"
                 defaultValue={values.body}
+                onChange={(e) => setValues({ ...values, body: e.target.value })}
               />
             </p>
             <p className="card-text">
@@ -121,12 +158,15 @@ function PostEdit(props) {
                 placeholder="Src"
                 rows="3"
                 defaultValue={values.src}
+                onChange={(e) => setValues({ ...values, src: e.target.value })}
               />
             </p>
 
             <hr />
             <div className="btn-ctrl">
-              <button className="btn btn-primary">Save</button>
+              <button className="btn btn-primary" onClick={updatePost}>
+                Save
+              </button>
               <button className="btn btn-danger" onClick={deletePost}>
                 Delete
               </button>
