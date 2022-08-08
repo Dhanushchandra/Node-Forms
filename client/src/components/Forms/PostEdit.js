@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "./styles/Post.css";
+import "../Posts/styles/Post.css";
 import "./styles/PostEdit.css";
 import Base from "../Base/Base";
 
@@ -79,7 +79,7 @@ function PostEdit(props) {
             setValues({ ...values, success: true, successMsg: "Post deleted" });
             setTimeout(() => {
               window.location.href = "/";
-            }, 3000);
+            }, 1500);
           } else {
             setValues({ ...values, error: "Not Found" });
             console.log("Not found");

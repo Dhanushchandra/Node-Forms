@@ -8,5 +8,16 @@
     flex-wrap: wrap;
     padding: 70px;
     margin-bottom: 20px;
-
 }
+
+
+@media screen and (max-width: 768px) {
+    .posts-main{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+}
+}
+    
+

@@ -9,6 +9,7 @@
     font-weight: bold;
     text-decoration: none;
     color: #000;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
 }
 
 
@@ -16,4 +17,10 @@
 .card-text{
     font-size: 1.2rem;
     color: #000;
+}
+
+@media screen and (max-width: 768px) {
+    .post-main{
+        margin-top: 20px;
+    }
 }

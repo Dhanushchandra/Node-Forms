@@ -3,7 +3,7 @@ import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import CreatePosts from "./components/Forms/CreatePosts";
 import Base from "./components/Base/Base";
-import PostEdit from "./components/Posts/PostEdit";
+import PostEdit from "./components/Forms/PostEdit";
 import {
   BrowserRouter as Router,
   Routes,
