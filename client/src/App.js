@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
 import CreatePosts from "./components/Forms/CreatePosts";
@@ -15,9 +15,9 @@ import { isAuthenticated } from "../src/helpers/Authenticated";
 
 //main
 function App() {
-  useEffect(() => {
-    isAuthenticated();
-  }, []);
+  // useLayoutEffect(() => {
+  //   isAuthenticated();
+  // }, []);
 
   const token = localStorage.getItem("jwt");
 

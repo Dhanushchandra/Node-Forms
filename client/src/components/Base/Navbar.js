@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import Logout from "../Forms/Logout";
 import "./styles/Navbar.css";
+import { isAuthenticated } from "../../helpers/Authenticated";
 
 function Navbar() {
-  const token = localStorage.getItem("jwt");
+  const [token, setToken] = React.useState(false);
+
+  useLayoutEffect(() => {
+    isAuthenticated()
+      .then((res) => {
+        if (res) {
+          setToken(true);
+        } else {
+          setToken(false);
+        }
+      })
+      .catch((err) => {
+        setToken(false);
+      });
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg bg-light">
