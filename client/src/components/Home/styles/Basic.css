@@ -30,19 +30,27 @@
 
 @media (max-width: 768px) {
     .basic-main{
-        height: 100%;
-        width: 100vh;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
+        padding: 0;
+
     }
+
     .basic-main img{
-        height: 50vh;
-        width: 50vh;
+        padding-top: 40px;
+        width: 100%;
     }
+
     .basic-text{
-        font-size: 3vw;
-        padding: 50px;
+        font-size: 2.5vw;
+        padding-top: 20%;
+        padding-bottom: 20%;
+    }
+
+    .basic-text p{
+        font-size: 4vw;
+        color: green;
     }
 } 
 

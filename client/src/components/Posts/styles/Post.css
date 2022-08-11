@@ -19,6 +19,20 @@
     color: #000;
 }
 
+.card-creater{
+    font-size: 1.1rem;
+    color: grey;
+    font-weight: bold;
+}
+
+.card-creater span{
+    color: green;
+}
+
+.post-main{
+    margin-top: 10%;
+}
+
 @media screen and (max-width: 768px) {
     .post-main{
         margin-top: 20px;

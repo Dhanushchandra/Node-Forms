@@ -45,6 +45,7 @@ function Login() {
             console.log("login success");
             localStorage.setItem("jwt", data.token);
             localStorage.setItem("userId", data.id);
+            localStorage.setItem("userName", data.name);
             document.getElementById("loginForm").reset();
             window.location.href = "/";
           }

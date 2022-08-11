@@ -5,6 +5,8 @@ import "./styles/Navbar.css";
 import { isAuthenticated } from "../../helpers/Authenticated";
 
 function Navbar() {
+  const userName = localStorage.getItem("userName");
+
   const [token, setToken] = React.useState(false);
 
   useLayoutEffect(() => {
@@ -25,7 +27,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          POST-APP
+          POST-IT
         </a>
         <button
           className="navbar-toggler"
@@ -43,25 +45,39 @@ function Navbar() {
           id="navbarNavAltMarkup"
         >
           <div className="navbar-nav ">
+            {token ? (
+              <a className="nav-link active user-name " aria-current="page">
+                <Link className="link" to="/">
+                  <span className="user-name-text">
+                    <i className="fa fa-solid fa-user"></i>
+                    {userName}
+                  </span>
+                </Link>
+              </a>
+            ) : null}
+
             <a className="nav-link active " aria-current="page">
               <Link className="link" to="/">
                 Home
               </Link>
             </a>
-            <a className="nav-link  " aria-current="page">
-              {token ? (
+
+            {token ? (
+              <a className="nav-link  " aria-current="page">
                 <Link className="link" to="/myposts">
                   My Posts
                 </Link>
-              ) : null}
-            </a>
-            <a className="nav-link  " aria-current="page">
-              {token ? (
+              </a>
+            ) : null}
+
+            {token ? (
+              <a className="nav-link  " aria-current="page">
                 <Link className="link" to="/createpost">
                   Create
                 </Link>
-              ) : null}
-            </a>
+              </a>
+            ) : null}
+
             <a className="nav-link">
               {token ? null : (
                 <Link className="link" to="/register">

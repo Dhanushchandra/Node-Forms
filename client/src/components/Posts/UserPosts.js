@@ -41,9 +41,15 @@ function UserPosts() {
     return (
       <div className="container-fluid posts-main ">
         {posts.map((d) => (
-          <div>
-            <Link to={`/post/${d._id}`}>
-              <Post key={d._id} src={d.src} title={d.title} body={d.body} />
+          <div className="UserCards">
+            <Link style={{ textDecoration: "none" }} to={`/post/${d._id}`}>
+              <Post
+                key={d._id}
+                name={"own"}
+                src={d.src}
+                title={d.title}
+                body={d.body}
+              />
             </Link>
           </div>
         ))}
@@ -62,7 +68,10 @@ function UserPosts() {
   return (
     <Base>
       <div className="container-fluid posts-main ">
-        <h1>User Posts</h1>
+        <div style={{ textAlign: "center" }}>
+          <h1>User Card</h1>
+          <p>Click on the card to edit your post!! </p>
+        </div>
         {posts.length > 0 ? successPost() : <NoPost />}
       </div>
     </Base>

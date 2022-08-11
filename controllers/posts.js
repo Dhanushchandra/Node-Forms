@@ -2,28 +2,37 @@ const Post = require("../models/postSchema");
 const User = require("../models/userSchema");
 
 module.exports.createUserPost = (req, res) => {
-  const post = new Post({
-    title: req.body.title,
-    body: req.body.body,
-    src: req.body.src,
-  });
-  post.save((err, post) => {
+  User.findById(req.params.id, (err, user) => {
     if (err) {
-      res.status(400).send(err);
+      res.status(404).json({
+        message: "User not found",
+      });
     }
-    User.findByIdAndUpdate(
-      req.params.id,
-      { $push: { posts: post._id } },
-      (err, user) => {
-        if (err) {
-          res.status(400).send(err);
-        }
-        res.status(200).json({
-          message: "Post created successfully",
-          post: post,
-        });
+
+    const post = new Post({
+      title: req.body.title,
+      body: req.body.body,
+      src: req.body.src,
+      user: user._id,
+    });
+    post.save((err, post) => {
+      if (err) {
+        res.status(400).send(err);
       }
-    );
+      User.findByIdAndUpdate(
+        req.params.id,
+        { $push: { posts: post._id } },
+        (err, user) => {
+          if (err) {
+            res.status(400).send(err);
+          }
+          res.status(200).json({
+            message: "Post created successfully",
+            post: post,
+          });
+        }
+      );
+    });
   });
 };
 
@@ -88,6 +97,7 @@ module.exports.deleteUserPost = (req, res) => {
 
 module.exports.getAllPosts = (req, res) => {
   Post.find()
+    .populate("user", ["name", "email"])
     .then((posts) => {
       res.status(200).json({
         message: "Posts fetched successfully",

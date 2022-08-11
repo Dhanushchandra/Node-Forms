@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/Basic.css";
 
 function Basic() {
@@ -8,7 +9,19 @@ function Basic() {
 
       <div className="basic-text">
         <h1>Welcome to the Basic Page!</h1>
-        <p>Please login to see ours posts.</p>
+        <p>
+          Please
+          <Link style={{ textDecoration: "none" }} to="/login">
+            {" "}
+            login{" "}
+          </Link>{" "}
+          or
+          <Link style={{ textDecoration: "none" }} to="/register">
+            {" "}
+            Register{" "}
+          </Link>
+          to see ours posts.
+        </p>
       </div>
     </div>
   );

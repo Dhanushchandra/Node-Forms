@@ -15,7 +15,46 @@
 }
 
 .navbar-brand{
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #4169E1;
+    padding: 10px;
+    color: #dfe6e9;
+    border-radius: 17px;
+    transition: .4s;
+}
+
+.user-name{
+    background-color: #dfe6e9;
+    border-radius: 15px;
+    
+}
+
+.user-name .fa{
     font-size: 1.5rem;
     font-weight: bold;
-    color: #000;
+    margin-right: 10px;
+}
+
+.user-name .user-name-text{
+    font-size: 1.1rem;
+    font-weight: bold;
+        color: #4169E1;
+}
+
+.user-name:hover{
+    background-color: #f2f2f2;
+}
+
+.navbar-brand:hover{
+    background-color: #f2f2f2;
+    color: #4169E1;
+    transition: .4s;
+}
+
+@media screen and (max-width: 768px) {
+    .user-name{
+
+        margin-top: 20px;
+    }
 }
