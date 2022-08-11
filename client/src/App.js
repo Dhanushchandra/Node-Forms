@@ -4,6 +4,7 @@ import Login from "./components/Forms/Login";
 import CreatePosts from "./components/Forms/CreatePosts";
 import Base from "./components/Base/Base";
 import PostEdit from "./components/Forms/PostEdit";
+import UserPosts from "./components/Posts/UserPosts";
 import {
   BrowserRouter as Router,
   Routes,
@@ -35,10 +36,11 @@ function App() {
           )}
           <Route path="/base" element={<Base />} />
           {token ? (
-            <Route path="/post/:id" element={<PostEdit />} />
+            <Route path="/post/:postId" element={<PostEdit />} />
           ) : (
-            <Route path="/post/:id" element={<Navigate to="/login" />} />
+            <Route path="/post/:postId" element={<Navigate to="/login" />} />
           )}
+          <Route path="/myposts" element={<UserPosts />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

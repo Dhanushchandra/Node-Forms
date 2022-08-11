@@ -4,6 +4,7 @@ import Base from "../Base/Base";
 
 function CreatePosts() {
   const token = localStorage.getItem("jwt");
+  const userId = localStorage.getItem("userId");
 
   const [values, setValues] = useState({
     title: "",
@@ -20,7 +21,7 @@ function CreatePosts() {
 
     setValues({ ...values, error: "", success: false });
 
-    fetch("http://localhost:8000/api/posts/create", {
+    fetch(`http://localhost:8000/api/posts/user/create/${userId}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

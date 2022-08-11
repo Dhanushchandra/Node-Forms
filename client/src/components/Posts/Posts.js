@@ -42,9 +42,7 @@ const Posts = () => {
       <div className="container-fluid posts-main ">
         {posts.map((d) => (
           <div>
-            <Link to={`/post/${d._id}`}>
-              <Post key={d._id} src={d.src} title={d.title} body={d.body} />
-            </Link>
+            <Post key={d._id} src={d.src} title={d.title} body={d.body} />
           </div>
         ))}
       </div>

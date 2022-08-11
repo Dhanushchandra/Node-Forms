@@ -50,6 +50,13 @@ function Navbar() {
             </a>
             <a className="nav-link  " aria-current="page">
               {token ? (
+                <Link className="link" to="/myposts">
+                  My Posts
+                </Link>
+              ) : null}
+            </a>
+            <a className="nav-link  " aria-current="page">
+              {token ? (
                 <Link className="link" to="/createpost">
                   Create
                 </Link>

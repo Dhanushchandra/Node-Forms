@@ -29,6 +29,7 @@ module.exports.loginUser = (req, res) => {
         const token = getToken(user.email, user._id);
         return res.status(200).json({
           message: "Login Successful",
+          id: user._id,
           token: token,
         });
       }

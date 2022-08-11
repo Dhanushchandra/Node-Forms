@@ -15,10 +15,11 @@ function PostEdit(props) {
   });
 
   const token = localStorage.getItem("jwt");
-  const { id } = useParams();
+  const { postId } = useParams();
+  const userId = localStorage.getItem("userId");
 
   const getPost = () => {
-    fetch(`http://localhost:8000/api/posts/${id}`, {
+    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +41,7 @@ function PostEdit(props) {
   };
 
   const updatePost = () => {
-    fetch(`http://localhost:8000/api/posts/${id}`, {
+    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +67,7 @@ function PostEdit(props) {
   };
 
   const deletePost = () => {
-    fetch(`http://localhost:8000/api/posts/${id}`, {
+    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
