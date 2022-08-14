@@ -23,6 +23,11 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 
 //client - frontend
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
 
 // Connect to MongoDB
 DBconnection();
