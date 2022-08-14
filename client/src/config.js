@@ -1,1 +1,1 @@
-export const API = "https://postpi.herokuapp.com/";
+export const API = "https://postpi.herokuapp.com";
