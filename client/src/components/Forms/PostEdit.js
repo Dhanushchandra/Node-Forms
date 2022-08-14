@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "../Posts/styles/Post.css";
 import "./styles/PostEdit.css";
 import Base from "../Base/Base";
+import { API } from "../../config";
 
 function PostEdit(props) {
   const [values, setValues] = useState({
@@ -19,7 +20,7 @@ function PostEdit(props) {
   const userId = localStorage.getItem("userId");
 
   const getPost = () => {
-    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
+    fetch(`${API}/api/posts/user/${userId}/${postId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +42,7 @@ function PostEdit(props) {
   };
 
   const updatePost = () => {
-    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
+    fetch(`${API}/api/posts/user/${userId}/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +68,7 @@ function PostEdit(props) {
   };
 
   const deletePost = () => {
-    fetch(`http://localhost:8000/api/posts/user/${userId}/${postId}`, {
+    fetch(`${API}/api/posts/user/${userId}/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,

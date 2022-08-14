@@ -1,7 +1,9 @@
+import { API } from "../config";
+
 export const isAuthenticated = () => {
   return new Promise((resolve, reject) => {
     const token = localStorage.getItem("jwt");
-    fetch("http://localhost:8000/api/auth/isAuthChecker", {
+    fetch(`${API}/api/auth/isAuthChecker`, {
       method: "POST",
       headers: {
         Accept: "application/json",

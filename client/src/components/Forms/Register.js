@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Base from "../Base/Base";
+import { API } from "../../config";
 
 function Register() {
   const [values, setValues] = useState({
@@ -20,7 +21,7 @@ function Register() {
 
     setValues({ ...values, error: "", success: false });
 
-    fetch("http://localhost:8000/api/sign_up", {
+    fetch(`${API}/api/sign_up`, {
       method: "POST",
       headers: {
         Accept: "application/json",

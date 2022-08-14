@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Base from "../Base/Base";
+import { API } from "../../config";
 
 function CreatePosts() {
   const token = localStorage.getItem("jwt");
@@ -21,7 +22,7 @@ function CreatePosts() {
 
     setValues({ ...values, error: "", success: false });
 
-    fetch(`http://localhost:8000/api/posts/user/create/${userId}`, {
+    fetch(`${API}/api/posts/user/create/${userId}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -3,6 +3,7 @@ import Basic from "../Home/Basic";
 import Base from "../Base/Base";
 import Post from "./Post";
 import { Link } from "react-router-dom";
+import { API } from "../../config";
 
 function UserPosts() {
   const token = localStorage.getItem("jwt");
@@ -10,7 +11,7 @@ function UserPosts() {
   const [posts, setPosts] = useState([]);
 
   const getPosts = () => {
-    fetch(`http://localhost:8000/api/posts/user/${userId}`, {
+    fetch(`${API}/api/posts/user/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

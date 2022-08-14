@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Base from "../Base/Base";
 import "./styles/Login.css";
+import { API } from "../../config";
 
 function Login() {
   const [values, setValues] = useState({
@@ -18,7 +19,7 @@ function Login() {
 
     setValues({ ...values, error: "", success: false });
 
-    fetch("http://localhost:8000/api/sign_in", {
+    fetch(`${API}/api/sign_in`, {
       method: "POST",
       headers: {
         Accept: "application/json",
