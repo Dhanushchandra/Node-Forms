@@ -1,0 +1,18 @@
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.copyright {
+    background-color: #1a252f;
+}
+
+.design-footer {
+    background-color: #fff;
+}
+
+.design-footer p {
+    text-align: center;
+    margin-top: 14px;
+}
