@@ -4,13 +4,14 @@ import Post from "./Post";
 import "./styles/Posts.css";
 import { Link } from "react-router-dom";
 import { API } from "../../config";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const token = localStorage.getItem("jwt");
 
   const getPosts = () => {
-    const token = localStorage.getItem("jwt");
-
     fetch(`${API}/api/posts`, {
       method: "GET",
       headers: {
@@ -38,6 +39,17 @@ const Posts = () => {
     getPosts();
   }, []);
 
+  const Loading = () => {
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  };
+
   const successPost = () => {
     return (
       <div className="container-fluid posts-main ">
@@ -58,7 +70,8 @@ const Posts = () => {
 
   return (
     <div className="container-fluid posts-main ">
-      {posts.length > 0 ? successPost() : <Basic />}
+      {/* {posts.length > 0 ? successPost() : <Basic />} */}
+      {token ? posts.length > 0 ? successPost() : <Loading /> : <Basic />}
     </div>
   );
 };

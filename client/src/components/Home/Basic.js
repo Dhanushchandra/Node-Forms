@@ -20,7 +20,7 @@ function Basic() {
             {" "}
             Register{" "}
           </Link>
-          to see ours posts.
+          to see the posts.
         </p>
       </div>
     </div>
